@@ -1,0 +1,19 @@
+{
+    "name": "abhimanyusingh/abhimanyu",
+    "description": "A simple hello world composer packagesdasdad",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Abhimanyusingh\\Abhimanyu\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abhimanyu Singh",
+            "email": "abhimanyu56@gmail.com"
+        }
+    ],
+    "require": {}
+}
