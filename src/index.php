@@ -3,15 +3,17 @@
 
 namespace Abhimanyusingh\Abhimanyu;
 
-class BuyUCoin
+class Index
 {
-
 
     private $BASE_URL;
 
     function __construct() {
-        include("config.php");
+        include("utils.php");
         $this->BASE_URL = $BASE_URL;
+        $this->POST_BASE_URL = $POST_BASE_URL;
+        $this->HASH = new Hash();
+
     }
 
     /**
@@ -57,6 +59,29 @@ class BuyUCoin
         return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveOrderBook?symbol=$symbol");
     }
 
+
+
+    // POST CALLS
+
+     /**
+     * @Method: Returns Last Trades For single Market.
+     */
+    public function getWallet( $apiKey, $secretKey, $payload = {})
+    {
+        $nonce = time();
+        $headers = {};
+        $headers["buc-nonce"] = $nonce;
+        $headers["buc-apikey"] = $apiKey;
+        $headers["buc-signature"] = sortObjectAndHash(
+        $payload,
+        $secretKey,
+        $nonce
+        );
+
+        return $this->sendPostRequest($this->POST_BASE_URL . "/api/wallet/v1.0/walletPortfolio", $headers, $payload);
+
+    }
+
     private function sendRequest($url)
     {
         try{
@@ -79,6 +104,35 @@ class BuyUCoin
 
             curl_close($curl);
             return $response;
+        } catch (customException $e) {
+            return $e->errorMessage();
+        }
+    }
+
+    private function sendPostRequest($url, $headers, $postfields)
+    {
+        try{
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_HTTPHEADER => $headers,
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            return $response;
+
         } catch (customException $e) {
             return $e->errorMessage();
         }
