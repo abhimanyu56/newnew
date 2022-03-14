@@ -5,7 +5,7 @@ namespace Abhimanyusingh\Abhimanyu;
 class Index
 {
 
-    $BASE_URL = 'https://api.buyucoin.com';
+    //$BASE_URL = 'https://api.buyucoin.com';
 
 
     public function getTicketData()
