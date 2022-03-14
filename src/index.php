@@ -3,7 +3,7 @@
 
 namespace Abhimanyusingh\Abhimanyu;
 
-class Index
+class BuyUCoin
 {
 
 
