@@ -14,9 +14,47 @@ class Index
         $this->BASE_URL = $BASE_URL;
     }
 
+    /**
+     * @Method: Returns ticket data for all markets.
+     */
     public function getTicketData()
     {
         return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveData");
+    }
+
+    /**
+     * @Method: Returns data for all currency.
+     */
+    public function getAllCurrency()
+    {
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/allCurrencies");
+    }
+
+    /**
+     * @Method: Returns data for single market.
+     */
+    public function geSingleMarketTicketData($param = null)
+    {
+        $symbol = $param ? $param : "USDT-BTC";
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveData?symbol=$symbol");
+    }
+
+    /**
+     * @Method: Returns Order Book for single market.
+     */
+    public function geSingleMarketOrderBook($param = null)
+    {
+        $symbol = $param ? $param : "INR-BTC";
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveOrderBook?symbol=$symbol");
+    }
+
+    /**
+     * @Method: Returns Last Trades For single Market.
+     */
+    public function geSingleMarketLastTrades($param = null)
+    {
+        $symbol = $param ? $param : "USDT-BTC";
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveOrderBook?symbol=$symbol");
     }
 
     private function sendRequest($url)
@@ -48,8 +86,6 @@ class Index
 }
 
 
-
-
 class customException extends \Exception {
     public function errorMessage() {
       //error message
@@ -57,4 +93,4 @@ class customException extends \Exception {
       .': <b>'.$this->getMessage().'</b> is not a valid E-Mail address';
       return $errorMsg;
     }
-  }
+}
