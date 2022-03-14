@@ -10,7 +10,7 @@ class Index
 
     public function getTicketData()
     {
-        return $this->sendRequest("$this->BASE_URL/ticker/v1.0/liveData");
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveData");
     }
 
     private function sendRequest($url)
