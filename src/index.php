@@ -1,16 +1,22 @@
 <?php 
 
+
 namespace Abhimanyusingh\Abhimanyu;
 
 class Index
 {
 
-    //$BASE_URL = 'https://api.buyucoin.com';
 
+    private $BASE_URL;
+
+    function __construct() {
+        include("config.php");
+        $this->BASE_URL = $BASE_URL;
+    }
 
     public function getTicketData()
     {
-        return $this->sendRequest("https://api.buyucoin.com/ticker/v1.0/liveData");
+        return $this->sendRequest($this->BASE_URL . "/ticker/v1.0/liveData");
     }
 
     private function sendRequest($url)
